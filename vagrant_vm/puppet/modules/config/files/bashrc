@@ -1,0 +1,45 @@
+# Basic config
+
+export PAGER='less' # Less is more.
+export EDITOR='nano' # Set to vim or emacs if you're adventurous.
+
+# compiler variables
+export CC='gcc'
+export CXX='g++'
+
+export HISTFILE='~/.histfile' # path to history file
+export SAVEHIST=1000 # lines to save on session exit
+export HISTSIZE=1000 # lines to load on session start
+# prevent duplicate commands and commands starting with a space from being
+# written to the history file
+export HISTCONTROL='ignoreboth:erasedups'
+
+# enable tab completion extensions if we have them
+if [ -f '/etc/bash_completion' ]; then
+  source '/etc/bash_completion'
+fi
+
+# disable default emacs-style keybindings in favor of vi-style keybindings
+set -o vi
+
+shopt -s histappend # append to history rather than nuking it on each write
+shopt -s checkwinsize # adjust window size on job exit
+
+# set shell prompt
+PS1='[\u@\h \W]\$ ' # [user@hostname working-directory]$
+
+# if we have nproc, use it to fetch the hardware thread count
+function get_nthreads() {
+  local -i nthr=1
+  if command -v nproc >/dev/null 2>&1; then
+    local -i res="$(nproc)"
+    if [ $? ]; then
+      nthr="$res"
+    fi
+  fi
+  return "$nthr"
+}
+
+# faster builds when using make
+MAKE_JOBS="$(get_nthreads)"
+export MAKEFLAGS="-j$MAKE_JOBS"
