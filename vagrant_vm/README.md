@@ -34,6 +34,7 @@ Instructions
 Notes
 -----
 
++ The default password for the vagrant user is `vagrant`.
 + The course-info repo directory is shared between the host operating and
   the course virtual machine (by default). Any changes made in
   `/home/vagrant/cs3281` will also be visible on the host (and vice versa).
