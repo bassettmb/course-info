@@ -1,0 +1,27 @@
+# emacs files
+
+*~
+\#*\#
+
+# vim files
+
+.*.swp
+
+# generated C/C++ files
+
+a.out
+*.o
+*.gch
+*.a
+*.so
+*.dylib
+
+# generated build system files
+
+cmake_install.cmake
+CMakeCache.txt
+CMakeFiles/
+
+# generated java files
+
+*.class
