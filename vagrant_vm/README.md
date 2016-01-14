@@ -24,7 +24,7 @@ Instructions
 
 3. Clone the course-info git repo.
 
-        git clone git@github.com:cs3281-2016/course-info.git
+        git clone --recursive git@github.com:cs3281-2016/course-info.git
 
 4. Start vagrant from the vagrant-vm directory of the course-info repository.
 
