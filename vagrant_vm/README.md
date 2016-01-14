@@ -31,10 +31,14 @@ Instructions
         cd course-info/vagrant-vm
         vagrant up
 
-Notes and Optional Extras
--------------------------
-+ The vm may also be accessed via ssh from a terminal by running `vagrant
-  ssh` from the `course-info/vagrant-vm` directory.
+Notes
+-----
+
++ The course-info repo directory is shared between the host operating and
+  the course virtual machine (by default). Any changes made in
+  `/home/vagrant/cs3281` will also be visible on the host (and vice versa).
++ The vm may also be accessed over ssh by running `vagrant ssh` from the
+  `course-info/vagrant-vm` directory
 + Headless mode (running without the gui) can be enabled by setting
   `vb.gui` to `false` in the provided Vagrantfile
 + Additional software (Eclipse, Code::Blocks, etc.) may be installed
