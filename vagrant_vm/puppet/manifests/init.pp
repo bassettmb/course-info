@@ -23,24 +23,14 @@ package { 'libboost-all-dev': ensure => present }
 package { 'vim': ensure => present }
 package { 'emacs': ensure => present }
 
+# Ensure we have a valid mountpoint for the virtualbox share
 file { $work:
   ensure => directory,
   owner => $user,
   mode => "0744"
 }
 
-file { $root_ssh:
-  ensure => directory,
-  mode => "0700"
-}
-
-exec { 'fetch_hosts':
-  command => "ssh-keyscan '$host' | tee '$root_hosts' >> '$user_hosts' && chown '$user:$user' '$user_hosts'",
-  path => "$exec_path",
-  unless => "grep '$host' '$dest'",
-  require => [Package['ssh'], File["$root_ssh"]]
-}
-
+# Load in dot files
 class { 'config':
-  id => $user
+  user => $user
 }

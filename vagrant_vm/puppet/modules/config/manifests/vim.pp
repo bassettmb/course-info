@@ -1,37 +1,39 @@
-class config::vim($id) {
+class config::vim($user, $prefix, $remote) {
 
-  $prefix = "/home/$id"
   $vimdir = "$prefix/.vim"
-  $swapdir = "$vimdir/swap"
-  $undodir = "$vimdir/undo"
-  $remote = 'puppet:///modules/config'
-
-  file { "$vimdir":
-    mode => 755,
-    ensure => directory
-  }
-
-  file { "$swapdir":
-    mode => 700,
-    ensure => directory,
-    require => [File["$vimdir"]]
-  }
-
-  file { "$undodir":
-    mode => 700,
-    ensure => directory,
-    require => [File["$vimdir"]]
-  }
 
   file { "$prefix/.vimrc":
-    mode => 644,
+    mode => "0644",
+    owner => $id,
+    ensure => file,
     source => "$remote/vimrc"
   }
 
   file { "$prefix/.viminfo":
-    mode => 600,
-    ensure => present,
+    mode => "0600",
+    owner => $id,
+    ensure => file,
     content => ""
+  }
+
+  file { "$vimdir":
+    mode => "0755",
+    owner => $id,
+    ensure => directory
+  }
+
+  file { "$vimdir/swap":
+    mode => "0700",
+    owner => $id,
+    ensure => directory,
+    require => [File["$vimdir"]]
+  }
+
+  file { "$vimdir/undo":
+    mode => "0700",
+    owner => $id,
+    ensure => directory,
+    require => [File["$vimdir"]]
   }
 
 }
