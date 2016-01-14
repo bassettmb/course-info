@@ -61,7 +61,7 @@ boost_func(){
 
 hello_func
 openjdk7_func
-eclipse_func
+#eclipse_func XXX: broken url
 
 g++_func
 git_func
