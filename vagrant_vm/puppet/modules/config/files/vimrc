@@ -1,0 +1,65 @@
+scriptencoding utf-8
+
+" basic settings
+
+set nocompatible " drop vi compatibility
+
+filetype plugin on " enable filetype detection and settings
+filetype indent on " enable filetype-based indentation settings
+
+" typing modifiers
+
+set backspace=eol,start,indent " allow backspacing over everything
+set expandtab                  " expand tabs into spaces
+set shiftwidth=2               " spaces indented on shift operation
+set tabstop=2                  " spaces allocated to representation of a hard tab
+set autoindent                 " try to match indent level of the previous line
+set textwidth=76               " auto-wrap text (and comments) at the 76-character mark
+
+" cindent options
+
+set cinoptions=g0,l1,L-1,(0,W0        " reasonable defaults .. see the help page of specifics
+set cinkeys=0{,0},0),:,;,0#,!,o,O,e " see above
+
+" visual modifiers
+
+syntax enable   " enable syntax highlighting
+set scrolloff=5 " keep a five-line scroll buffer at the screen edges
+set ruler       " show the cursor position in the bottom right
+set number      " show line numbers in left-hand column
+set showmode    " show non-normal mode indicator at the bottom of the screen
+set incsearch   " begin showing search matches as a search string is typed
+
+" file modifiers
+
+set ffs=unix,dos,mac      " default to terminating lines with (only) a linefeed
+set history=700           " keep a pretty hefty command history
+set viminfo='20,\"500     " hold onto marks for the last 20 files 
+set directory=~/.vim/swap " store for swap files (in order to avoid polluting filesystem)
+set undodir =~/.vim/undo  " store for undo data
+set undofile              " hold onto edit history between editing sessions)
+
+" misc modifiers 
+set magic " interpret more regex characters with perl-like meaning by default
+
+" free-form configurations
+
+let g:is_bash = 1         " default to bash over posix sh for shell syntax
+let g:filetype_m = 'objc' " prioritize objective-C over matlab
+
+" autocommands
+
+augroup init
+
+  " nuke any autocommands currently active for the group (they can stack)
+  au!
+
+  " jump to last cursor position when reopening a file
+  au BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ execute "normal g`\"" |
+  \ endif
+
+  au FileType python set softtabstop=4 shiftwidth=4 " pep guidelines
+
+augroup END
